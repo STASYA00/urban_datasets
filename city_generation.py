@@ -163,12 +163,13 @@ class Dataset:
 	def _make(self):
 		n = 0
 		features = target_layer.getFeatures()
-		while n < self.samples:
-			for i, feature in enumerate(features):
-				if self._check(feature):
-					self._pan(feature)
-					self._export(self.path, n)
-					n += 1
+		for i, feature in enumerate(features):
+			if self._check(feature):
+				self._pan(feature)
+				self._export(self.path, n)
+				n += 1
+			if n > self.samples:
+				break
 
 	def _pan(self, feature):
 		center = [feature.geometry().centroid().asPoint().x(),
