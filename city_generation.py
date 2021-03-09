@@ -10,22 +10,12 @@ sys.path.append('D:/Google Drive/edu/#/thesis/qgis')
 from utils import *
 
 city = 'milan'
-BASE_PATH = 'D:/Google Drive/edu/#/thesis/gan_maps/{}/g/'.format(city)
-PART = 'B'
+BASE_PATH = ''
 
 SAMPLES = 5
-#FIELD = 'CODE2012'
-#categories = ['11100', '11210']  # '12100'
-# interest_layer = QgsProject.instance().mapLayersByName('zone_of_interest_' + city)[0]
-# for i in interest_layer.getFeatures():
-# 	main_feature = i
-# 	print(main_feature.geometry().area())
 
 target_layer = QgsProject.instance().mapLayersByName('urban_blocks_' + city)[0]
-building_layer = QgsProject.instance().mapLayersByName(
-	'buildings_' + city)
-# green_layer = QgsProject.instance().mapLayersByName('green_milan')[0]
-# green_layer1 = QgsProject.instance().mapLayersByName('green_milan1')[0]
+building_layer = QgsProject.instance().mapLayersByName('buildings_' + city)
 CRS = target_layer.crs()
 
 
@@ -111,7 +101,15 @@ class Dataset:
 	"""
 	Class that generates a normal dataset from a map
 	"""
-	def __init__(self, samples, path, map):
+	def __init__(self, samples, path, map, trainA: bool=False, extra: bool=False):
+		"""
+		Class initialization.
+		:param samples: number of samples to generate, int
+		:param path: path to save the images to, str
+		:param map: map, OurMap class
+		:param extra: parameter allowing to generate additional parameters such as
+		building density and the proportion of green in a block, bool, default False
+		"""
 		self.crs = CRS
 		self.samples = samples
 		self.path = path
@@ -124,6 +122,8 @@ class Dataset:
 		self.map = map
 		self.v, self.pr = make_new_layer(crs=self.crs)
 
+		self.trainA = trainA
+		self.extra = extra
 		self.dict = {}
 
 	def make(self):
@@ -136,7 +136,7 @@ class Dataset:
 	def _calculate(self, feature, n):
 		built_proportion = round(find_feature(feature)[0], 2)
 		green_proportion = round(find_feature(feature,
-		                                      _layer=self.green_layer)[0], 2)
+		                                      _layer=green_layer)[0], 2)
 		self.dict[n] = [self.map.map.extent().xMinimum(),
 		                self.map.map.extent().yMinimum(),
 		                self.map.map.extent().xMaximum(),
@@ -157,17 +157,29 @@ class Dataset:
 		layout = self.map.manager.layoutByName(self.layout_name)
 		exporter = QgsLayoutExporter(layout)
 
-		fn = self.path + 'map{0}.png'.format(n)
+		fn = path + 'map{0}.png'.format(n)
 		exporter.exportToImage(fn, QgsLayoutExporter.ImageExportSettings())
 
 	def _make(self):
 		n = 0
 		features = target_layer.getFeatures()
+		try:
+			os.mkdir(self.path + 'trainB/')
+			if self.trainA:
+				os.mkdir(self.path + 'trainA/')
+		except Exception as e:
+			print(repr(e))
 		for i, feature in enumerate(features):
 			if self._check(feature):
 				self._pan(feature)
-				self._export(self.path, n)
+				self._export(self.path + 'trainB/', n)
+				if self.trainA == True:
+					self._close_block(feature)
+					self._export(self.path + 'trainA/', n)
+					self._remove_block()
 				n += 1
+				if self.extra:
+					self._calculate(feature, n)
 			if n > self.samples:
 				break
 
@@ -193,24 +205,20 @@ class Dataset:
 			pass
 
 
-class ADataset(Dataset):
-	def __init__(self, samples, path):
-		Dataset.__init__(self, samples, path)
-
-	def _make(self):
-		n = 0
-		features = target_layer.getFeatures()
-		while n < self.samples:
-			for i, feature in enumerate(features):
-				if self._check(feature):
-					self._pan(feature)
-					self._export(self.path + 'trainB/', n)
-					self._close_block(feature)
-					self._export(self.path + 'trainA/', n)
-					self._remove_block()
-					n += 1
-
-
 map = OurMap('Layout1')
-dataset = Dataset(SAMPLES, BASE_PATH, map)
+
+#######################
+
+# Uncomment if you want to calculate density and green proportion for each block
+# and use extra=True
+# green_layer = QgsProject.instance().mapLayersByName('YOUR_GREEN_LAYER_NAME')[0]
+
+
+TRAINA = False  # Change to True if you want a second dataset with a central
+				# block feature substituted with an empty block
+
+dataset = Dataset(SAMPLES, BASE_PATH, map, trainA=TRAINA, extra=False)
 dataset.make()
+
+# dataset.save()  # saves generated dictionary of extra values to path/labels.json
+
