@@ -3,7 +3,8 @@
 This script is intended to be used inside QGIS Software to create an image urban datasets. The contents of the images can vary based on the shapefiles available to you:)
 
 <img src="dataset_example1.png" width="1000"/>
-*These images were created using the script presented in this repo. The data were taken from <a href="https://dati.comune.milano.it/">Comune di Milano</a>.*
+
+_These images were created using the script presented in this repo. The data were taken from_ <a href="https://dati.comune.milano.it/">Comune di Milano</a>.
 
 ### How To Use
 
