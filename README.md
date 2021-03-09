@@ -21,8 +21,8 @@ _These images were created using the script presented in this repo. The data wer
 ```
 $python change_dim.py FOLDER [--folder1 FOLDER1] [--concat 1]
 ```
-* FOLDER - path to the folder with the images (trianB)
-* FOLDER1 - path to the second folder with the images (trianA) optional
+* FOLDER - path to the folder with the images (trainB)
+* folder1 - path to the second folder with the images (trainA) optional
 * concat - an option to concat two images together, the output will be stored in trainAB
 9. Enjoy!
 
