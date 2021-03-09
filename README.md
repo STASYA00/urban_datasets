@@ -15,8 +15,16 @@ _These images were created using the script presented in this repo. The data wer
 5. Set the variables:
 * SAMPLES - number of images to generate
 * BASE_PATH - path to save the images to
-6. If you need to generate the images with an empty block in the center change Dataset in the code executive part to ADataset
-7. Enjoy!
+6. Change the variable trainA to True if you need to generate both the normal set and the set with a central block painted in white.
+7. Set the variable EXTRA to True if ou want to generate annotations of building density and green density. Make sure to provide the name of the green layer!
+8. To adapt the files to pix2pix:
+```
+$python change_dim.py FOLDER [--folder1 FOLDER1] [--concat 1]
+```
+* FOLDER - path to the folder with the images (trianB)
+* FOLDER1 - path to the second folder with the images (trianA) optional
+* concat - an option to concat two images together, the output will be stored in trainAB
+9. Enjoy!
 
 ### What if I don't have any shapefiles?
 
