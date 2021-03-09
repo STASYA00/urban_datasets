@@ -101,7 +101,8 @@ class Dataset:
 	"""
 	Class that generates a normal dataset from a map
 	"""
-	def __init__(self, samples, path, map, trainA: bool=False, extra: bool=False):
+	def __init__(self, samples, path, map, trainA: bool=False, extra: bool=False,
+	             interest_layer: str='', region_layer: str=''):
 		"""
 		Class initialization.
 		:param samples: number of samples to generate, int
@@ -121,6 +122,9 @@ class Dataset:
 		self.layout_name = 'Layout1'
 		self.map = map
 		self.v, self.pr = make_new_layer(crs=self.crs)
+
+		self.interest_layer = interest_layer
+		self.region_layer = region_layer
 
 		self.trainA = trainA
 		self.extra = extra
@@ -147,7 +151,17 @@ class Dataset:
 		_density, _quantity = find_feature(feature)
 		if _density > self.threshold:
 			if _quantity > self.threshold_q:
-				return True
+				return self._check_region(feature)
+
+	def _check_region(self, feature):
+		if len(self.region_layer) > 0:
+			for i in self.region_layer.getFeatures():
+				main_feature = i
+			if main_feature.geometry().contains(feature.geometry()):
+				if feature.geometry().area() < 30000:
+					return True
+		else:
+			return True
 
 	def _close_block(self, feature):
 		self.v, self.pr = add_feature(self.v, self.pr, feature)
@@ -163,6 +177,8 @@ class Dataset:
 	def _make(self):
 		n = 0
 		features = target_layer.getFeatures()
+		if len(self.interest_layer) > 0:
+			features = QgsProject.instance().mapLayersByName(self.interest_layer)[0].getFeatures()
 		try:
 			os.mkdir(self.path + 'trainB/')
 			if self.trainA:
@@ -205,7 +221,15 @@ class Dataset:
 			pass
 
 
+################################################################################
+
 map = OurMap('Layout1')
+
+#######################
+# OPTIONAL
+
+interest_layer = ''  # name of the layer that contains specific features where the blocks should be centered
+region_layer = ''  # name of the layer limiting the area of image generation
 
 #######################
 
@@ -217,7 +241,8 @@ map = OurMap('Layout1')
 TRAINA = False  # Change to True if you want a second dataset with a central
 				# block feature substituted with an empty block
 
-dataset = Dataset(SAMPLES, BASE_PATH, map, trainA=TRAINA, extra=False)
+dataset = Dataset(SAMPLES, BASE_PATH, map, trainA=TRAINA, extra=False,
+                  interest_layer=interest_layer, region_layer=region_layer)
 dataset.make()
 
 # dataset.save()  # saves generated dictionary of extra values to path/labels.json
