@@ -26,6 +26,10 @@ $python change_dim.py FOLDER [--folder1 FOLDER1] [--concat 1]
 * concat - an option to concat two images together, the output will be stored in trainAB
 9. Enjoy!
 
+### Images for specific blocks only
+
+You can also generate images just for some specific blocks. Make sure they are on a separate layer and use ```test_set_generation.py``` in the previous instruction. Make sure to provide your layer name as the ```interest_layer```.
+
 ### What if I don't have any shapefiles?
 
 Don't worry! There is a script that gets the shapefiles from the region you need directly from <a href="https://www.openstreetmap.org/">OpenStreetMap</a> data <a href="https://opendatacommons.org/licenses/odbl/">(OdBL license)</a>. The script will make one shapefile with the roads and one with the buildings. Find a good location for your dataset and follow the steps:
