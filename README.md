@@ -26,7 +26,7 @@ $python change_dim.py FOLDER [--folder1 FOLDER1] [--concat 1]
 * concat - an option to concat two images together, the output will be stored in trainAB
 9. Enjoy!
 
-### Images for specific blocks only
+### Images only for some specific blocks
 
 You can also generate images just for some specific blocks. Make sure they are on a separate layer and use ```test_set_generation.py``` in the previous instruction. Make sure to provide your layer name as the ```interest_layer```.
 
