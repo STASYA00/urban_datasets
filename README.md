@@ -1,6 +1,6 @@
 ## Urban Datasets Generator
 
-This script is intended to be used inside QGIS Software to create an image urban datasets. The contents of the images can vary based on the shapefiles available to you:)
+This script is intended to be used inside <a href="https://www.qgis.org/en/site/">QGIS Software</a> to create an image urban datasets. The contents of the images can vary based on the shapefiles available to you:)
 
 <img src="dataset_example1.png" width="1000"/>
 
