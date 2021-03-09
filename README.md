@@ -28,7 +28,7 @@ $python change_dim.py FOLDER [--folder1 FOLDER1] [--concat 1]
 
 ### Images only for some specific blocks
 
-You can also generate images just for some specific blocks. Make sure they are on a separate layer and use ```test_set_generation.py``` in the previous instruction. Make sure to provide your layer name as the ```interest_layer```.
+You can also generate images just for some specific blocks. Make sure they are on a separate layer and  provide your layer name as the ```interest_layer``` in the end of the script file. If you want to generate images in one specific region only (e.g. city center), make a separate layer with a polygon delimiting this zone and add the name of this layer as ```region_layer``` in the end of the script file.
 
 ### What if I don't have any shapefiles?
 
