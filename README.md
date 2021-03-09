@@ -4,7 +4,7 @@ This script is intended to be used inside QGIS Software to create an image urban
 
 <img src="dataset_example1.png" width="1000"/>
 
-_These images were created using the script presented in this repo. The data were taken from_ <a href="https://dati.comune.milano.it/">Comune di Milano</a>.
+_These images were created using the script presented in this repo. The data were taken from_ <a href="https://dati.comune.milano.it/">_Comune di Milano_</a>.
 
 ### How To Use
 
