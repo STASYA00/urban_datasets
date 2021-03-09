@@ -18,7 +18,7 @@ This script is intended to be used inside QGIS Software to create an image urban
 
 Don't worry! There is a script that gets the shapefiles from the region you need directly from <a href="https://www.openstreetmap.org/">OpenStreetMap</a> data <a href="https://opendatacommons.org/licenses/odbl/">(OdBL license)</a>. The script will make one shapefile with the roads and one with the buildings. Find a good location for your dataset and follow the steps:
 
-1. Install <a href="https://www.anaconda.com/products/individual">Conda</a
+1. Install <a href="https://www.anaconda.com/products/individual">Conda</a>
 2. Install <a href="https://osmnx.readthedocs.io/en/stable/">osmnx</a> package in a new environment named osm
 
 ```
