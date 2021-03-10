@@ -59,3 +59,11 @@ Example:
 ```
 $python get_shapefiles.py "Bovisa, Milan, Italy"
 ```
+
+### Metrics calculation
+
+To calculate metrics:
+```
+$python metrics.py images_folder
+```
+images_folder should contain concatenated images (A+B).
