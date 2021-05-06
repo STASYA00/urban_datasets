@@ -6,6 +6,11 @@ This script is intended to be used inside <a href="https://www.qgis.org/en/site/
 
 _These images were created using the script presented in this repo. The data were taken from_ <a href="https://dati.comune.milano.it/">_Comune di Milano_</a>.
 
+
+[Arxiv](https://arxiv.org/abs/2105.01727)   |    [SimAUD Video Presentation](https://www.youtube.com/watch?t=3317&v=jO5kzjUUG08&feature=youtu.be) (8 min)
+
+To use Pix2Pix GAN models on the generated images, refer to [Urban Gen repo](https://github.com/STASYA00/UrbanGen)
+
 ### How To Use
 
 1. Open QGIS
