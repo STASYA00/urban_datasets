@@ -72,3 +72,11 @@ To calculate metrics:
 $python metrics.py images_folder
 ```
 images_folder should contain concatenated images (A+B).
+
+## Credits
+
+[OpenStreetMap](https://www.openstreetmap.org/)
+
+[QGIS](https://www.qgis.org/en/site/)
+
+[Portal of Open Data of Comune di Milano](https://dati.comune.milano.it/)
