@@ -73,6 +73,21 @@ $python metrics.py images_folder
 ```
 images_folder should contain concatenated images (A+B).
 
+## Citation
+
+Bibtex format
+
+```
+@inproceedings{gan4ud,
+    author = {Fedorova, Stanislava},
+    title = {GANs for Urban Design},
+    year = {2021},
+    month = {04},
+    pages = {9},
+    booktitle = {In proceedings of 12th Symposium on Simulation for Architecture and Urban Design (SimAUD 2021)}
+}
+```
+
 ## Credits
 
 [OpenStreetMap](https://www.openstreetmap.org/)
